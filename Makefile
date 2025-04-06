@@ -6,8 +6,10 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = main.c \
 	src/render/render_frame.c \
 	src/render/draw_utils.c \
+	src/render/raycast_functions.c \
 	src/input/key_control.c \
 	src/input/movement.c \
+	src/textures/textures_utils.c \
 	src/init.c
 OBJ = $(SRC:.c=.o)
 

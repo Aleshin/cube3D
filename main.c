@@ -16,10 +16,7 @@ int	main(void)
 {
 	t_data	data;
 
-	init_player(&data);
-	init_window(&data);
-	load_textures(&data);
-	init_map(&data);
+	init_data(&data);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_hook(data.win, 2, 1L << 0, key_press, &data);
 	mlx_hook(data.win, 3, 1L << 1, key_release, &data);

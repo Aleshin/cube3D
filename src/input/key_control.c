@@ -33,8 +33,14 @@ int	close_win(void *param)
 	data = (t_data *)param;
 	if (data->img)
 		mlx_destroy_image(data->mlx, data->img);
-	if (data->wall.img)
-		mlx_destroy_image(data->mlx, data->wall.img);
+	if (data->textures.north.img)
+		mlx_destroy_image(data->mlx, data->textures.north.img);
+	if (data->textures.south.img)
+		mlx_destroy_image(data->mlx, data->textures.south.img);
+	if (data->textures.east.img)
+		mlx_destroy_image(data->mlx, data->textures.east.img);
+	if (data->textures.west.img)
+		mlx_destroy_image(data->mlx, data->textures.west.img);
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	exit(0);
