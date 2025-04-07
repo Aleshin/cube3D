@@ -16,42 +16,10 @@ void	init_ray(t_data *data, int x, t_ray *ray)
 	double	camera_x;
 
 	camera_x = 2 * x / (double)WIDTH - 1;
-	ray->ray_dir_x = data->dirX + data->planeX * camera_x;
-	ray->ray_dir_y = data->dirY + data->planeY * camera_x;
+	ray->ray_dir_x = data->dir_x + data->plane_x * camera_x;
+	ray->ray_dir_y = data->dir_y + data->plane_y * camera_x;
 	ray->map_x = (int)data->px;
 	ray->map_y = (int)data->py;
-}
-
-void	init_steps(t_data *data, t_ray *ray, t_dda *dda)
-{
-	if (ray->ray_dir_x == 0)
-		dda->delta_x = 1e30;
-	else
-		dda->delta_x = fabs(1 / ray->ray_dir_x);
-	if (ray->ray_dir_y == 0)
-		dda->delta_y = 1e30;
-	else
-		dda->delta_y = fabs(1 / ray->ray_dir_y);
-	if (ray->ray_dir_x < 0)
-	{
-		dda->step_x = -1;
-		dda->side_x = (data->px - ray->map_x) * dda->delta_x;
-	}
-	else
-	{
-		dda->step_x = 1;
-		dda->side_x = (ray->map_x + 1.0 - data->px) * dda->delta_x;
-	}
-	if (ray->ray_dir_y < 0)
-	{
-		dda->step_y = -1;
-		dda->side_y = (data->py - ray->map_y) * dda->delta_y;
-	}
-	else
-	{
-		dda->step_y = 1;
-		dda->side_y = (ray->map_y + 1.0 - data->py) * dda->delta_y;
-	}
 }
 
 void	perform_dda(t_data *data, t_ray *ray, t_dda *dda)

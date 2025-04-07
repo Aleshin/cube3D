@@ -45,3 +45,19 @@ int	close_win(void *param)
 		mlx_destroy_window(data->mlx, data->win);
 	exit(0);
 }
+
+void	handle_movement(t_data *data)
+{
+	if (data->keys[XK_w])
+		move_forward(data);
+	if (data->keys[XK_s])
+		move_backward(data);
+	if (data->keys[XK_a])
+		strafe_left(data);
+	if (data->keys[XK_d])
+		strafe_right(data);
+	if (data->keys[XK_Left])
+		rotate_left(data);
+	if (data->keys[XK_Right])
+		rotate_right(data);
+}

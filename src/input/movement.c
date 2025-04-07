@@ -15,65 +15,39 @@
 void	move_forward(t_data *data)
 {
 	if (data->map[(int)(data->py)]
-		[(int)(data->px + data->dirX * MOVE_SPEED)] == 0)
-		data->px += data->dirX * MOVE_SPEED;
-	if (data->map[(int)(data->py + data->dirY * MOVE_SPEED)]
+		[(int)(data->px + data->dir_x * MOVE_SPEED)] == 0)
+		data->px += data->dir_x * MOVE_SPEED;
+	if (data->map[(int)(data->py + data->dir_y * MOVE_SPEED)]
 		[(int)(data->px)] == 0)
-		data->py += data->dirY * MOVE_SPEED;
+		data->py += data->dir_y * MOVE_SPEED;
 }
 
 void	move_backward(t_data *data)
 {
 	if (data->map[(int)(data->py)]
-		[(int)(data->px - data->dirX * MOVE_SPEED)] == 0)
-		data->px -= data->dirX * MOVE_SPEED;
-	if (data->map[(int)(data->py - data->dirY * MOVE_SPEED)]
+		[(int)(data->px - data->dir_x * MOVE_SPEED)] == 0)
+		data->px -= data->dir_x * MOVE_SPEED;
+	if (data->map[(int)(data->py - data->dir_y * MOVE_SPEED)]
 		[(int)(data->px)] == 0)
-		data->py -= data->dirY * MOVE_SPEED;
+		data->py -= data->dir_y * MOVE_SPEED;
 }
 
-void	rotate_left(t_data *data)
+void	strafe_left(t_data *data)
 {
-	double	old_dir_x;
-	double	old_plane_x;
-
-	old_dir_x = data->dirX;
-	data->dirX = data->dirX * cos(ROT_SPEED)
-		- data->dirY * sin(ROT_SPEED);
-	data->dirY = old_dir_x * sin(ROT_SPEED)
-		+ data->dirY * cos(ROT_SPEED);
-	old_plane_x = data->planeX;
-	data->planeX = data->planeX * cos(ROT_SPEED)
-		- data->planeY * sin(ROT_SPEED);
-	data->planeY = old_plane_x * sin(ROT_SPEED)
-		+ data->planeY * cos(ROT_SPEED);
+	if (data->map[(int)(data->py)]
+		[(int)(data->px - data->plane_x * MOVE_SPEED)] == 0)
+		data->px -= data->plane_x * MOVE_SPEED;
+	if (data->map[(int)(data->py - data->plane_y * MOVE_SPEED)]
+		[(int)(data->px)] == 0)
+		data->py -= data->plane_y * MOVE_SPEED;
 }
 
-void	rotate_right(t_data *data)
+void	strafe_right(t_data *data)
 {
-	double	old_dir_x;
-	double	old_plane_x;
-
-	old_dir_x = data->dirX;
-	data->dirX = data->dirX * cos(-ROT_SPEED)
-		- data->dirY * sin(-ROT_SPEED);
-	data->dirY = old_dir_x * sin(-ROT_SPEED)
-		+ data->dirY * cos(-ROT_SPEED);
-	old_plane_x = data->planeX;
-	data->planeX = data->planeX * cos(-ROT_SPEED)
-		- data->planeY * sin(-ROT_SPEED);
-	data->planeY = old_plane_x * sin(-ROT_SPEED)
-		+ data->planeY * cos(-ROT_SPEED);
-}
-
-void	handle_movement(t_data *data)
-{
-	if (data->keys[XK_w])
-		move_forward(data);
-	if (data->keys[XK_s])
-		move_backward(data);
-	if (data->keys[XK_a])
-		rotate_left(data);
-	if (data->keys[XK_d])
-		rotate_right(data);
+	if (data->map[(int)(data->py)]
+		[(int)(data->px + data->plane_x * MOVE_SPEED)] == 0)
+		data->px += data->plane_x * MOVE_SPEED;
+	if (data->map[(int)(data->py + data->plane_y * MOVE_SPEED)]
+		[(int)(data->px)] == 0)
+		data->py += data->plane_y * MOVE_SPEED;
 }

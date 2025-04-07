@@ -32,10 +32,10 @@ void	init_player(t_data *data)
 {
 	data->px = 2.5;
 	data->py = 2.5;
-	data->dirX = -1;
-	data->dirY = 0;
-	data->planeX = 0;
-	data->planeY = FOV;
+	data->dir_x = -1;
+	data->dir_y = 0;
+	data->plane_x = 0;
+	data->plane_y = FOV;
 	gettimeofday(&data->prev_time, NULL);
 }
 
