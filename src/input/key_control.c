@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "game.h"
 
-int	key_press(int keycode, t_data *data)
+int	key_press(int keycode, t_game *data)
 {
 	data->keys[keycode] = 1;
 	if (keycode == XK_Escape)
@@ -20,7 +20,7 @@ int	key_press(int keycode, t_data *data)
 	return (0);
 }
 
-int	key_release(int keycode, t_data *data)
+int	key_release(int keycode, t_game *data)
 {
 	data->keys[keycode] = 0;
 	return (0);
@@ -28,9 +28,9 @@ int	key_release(int keycode, t_data *data)
 
 int	close_win(void *param)
 {
-	t_data	*data;
+	t_game	*data;
 
-	data = (t_data *)param;
+	data = (t_game *)param;
 	if (data->img)
 		mlx_destroy_image(data->mlx, data->img);
 	if (data->textures.north.img)
@@ -46,7 +46,7 @@ int	close_win(void *param)
 	exit(0);
 }
 
-void	handle_movement(t_data *data)
+void	handle_movement(t_game *data)
 {
 	if (data->keys[XK_w])
 		move_forward(data);

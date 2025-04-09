@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "game.h"
 
-void	render_frame(t_data *data)
+void	render_frame(t_game *data)
 {
 	int		ceiling_color;
 	int		floor_color;
@@ -32,7 +32,7 @@ void	render_frame(t_data *data)
 	}
 }
 
-int	render(t_data *data)
+int	render(t_game *data)
 {
 	struct timeval	curr;
 	double			seconds;

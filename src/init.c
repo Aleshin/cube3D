@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "game.h"
 
-void	init_data(t_data *data)
+void	init_game(t_game *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < (int)(sizeof(t_data) / sizeof(int)))
+	while (i < (int)(sizeof(t_game) / sizeof(int)))
 	{
 		((int *)data)[i] = 0;
 		i++;
@@ -28,7 +28,7 @@ void	init_data(t_data *data)
 	load_textures(data);
 }
 
-void	init_player(t_data *data)
+void	init_player(t_game *data)
 {
 	data->px = 2.5;
 	data->py = 2.5;
@@ -39,7 +39,7 @@ void	init_player(t_data *data)
 	gettimeofday(&data->prev_time, NULL);
 }
 
-void	init_window(t_data *data)
+void	init_window(t_game *data)
 {
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3D with texture");
@@ -48,7 +48,7 @@ void	init_window(t_data *data)
 			&data->bpp, &data->line_length, &data->endian);
 }
 
-void	init_map(t_data *data)
+void	init_map(t_game *data)
 {
 	int	temp[MAP_HEIGHT][MAP_WIDTH] = {
 	{1, 1, 1, 1, 1, 1},

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "game.h"
 
 static void	init_deltas(t_ray *ray, t_dda *dda)
 {
@@ -24,7 +24,7 @@ static void	init_deltas(t_ray *ray, t_dda *dda)
 		dda->delta_y = fabs(1 / ray->ray_dir_y);
 }
 
-static void	init_step_x(t_data *data, t_ray *ray, t_dda *dda)
+static void	init_step_x(t_game *data, t_ray *ray, t_dda *dda)
 {
 	if (ray->ray_dir_x < 0)
 	{
@@ -38,7 +38,7 @@ static void	init_step_x(t_data *data, t_ray *ray, t_dda *dda)
 	}
 }
 
-static void	init_step_y(t_data *data, t_ray *ray, t_dda *dda)
+static void	init_step_y(t_game *data, t_ray *ray, t_dda *dda)
 {
 	if (ray->ray_dir_y < 0)
 	{
@@ -52,7 +52,7 @@ static void	init_step_y(t_data *data, t_ray *ray, t_dda *dda)
 	}
 }
 
-void	init_steps(t_data *data, t_ray *ray, t_dda *dda)
+void	init_steps(t_game *data, t_ray *ray, t_dda *dda)
 {
 	init_deltas(ray, dda);
 	init_step_x(data, ray, dda);

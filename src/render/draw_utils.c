@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "game.h"
 
-void	draw_textured_line(t_data *data, t_tex *tex, t_draw *d)
+void	draw_textured_line(t_game *data, t_tex *tex, t_draw *d)
 {
 	int	y;
 	int	tex_y;
@@ -29,7 +29,7 @@ void	draw_textured_line(t_data *data, t_tex *tex, t_draw *d)
 	}
 }
 
-void	draw_wall(t_data *data, int x, t_ray *ray)
+void	draw_wall(t_game *data, int x, t_ray *ray)
 {
 	t_draw	d;
 	t_tex	*tex;
@@ -44,7 +44,7 @@ void	draw_wall(t_data *data, int x, t_ray *ray)
 	draw_textured_line(data, tex, &d);
 }
 
-void	draw_ceiling(t_data *data, int x, int draw_start, int color)
+void	draw_ceiling(t_game *data, int x, int draw_start, int color)
 {
 	int	y;
 
@@ -56,7 +56,7 @@ void	draw_ceiling(t_data *data, int x, int draw_start, int color)
 	}
 }
 
-void	draw_floor(t_data *data, int x, int draw_end, int color)
+void	draw_floor(t_game *data, int x, int draw_end, int color)
 {
 	int	y;
 
@@ -68,7 +68,7 @@ void	draw_floor(t_data *data, int x, int draw_end, int color)
 	}
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 {
 	char	*dst;
 

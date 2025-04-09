@@ -9,9 +9,9 @@
 /*   Updated: 2025/04/05 21:22:57 by saleshin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cube3d.h"
+#include "game.h"
 
-void	init_ray(t_data *data, int x, t_ray *ray)
+void	init_ray(t_game *data, int x, t_ray *ray)
 {
 	double	camera_x;
 
@@ -22,7 +22,7 @@ void	init_ray(t_data *data, int x, t_ray *ray)
 	ray->map_y = (int)data->py;
 }
 
-void	perform_dda(t_data *data, t_ray *ray, t_dda *dda)
+void	perform_dda(t_game *data, t_ray *ray, t_dda *dda)
 {
 	int	hit;
 
@@ -63,7 +63,7 @@ void	calculate_projection(t_ray *ray)
 		ray->draw_end = HEIGHT - 1;
 }
 
-void	cast_ray(t_data *data, int x, t_ray *ray)
+void	cast_ray(t_game *data, int x, t_ray *ray)
 {
 	t_dda	dda;
 

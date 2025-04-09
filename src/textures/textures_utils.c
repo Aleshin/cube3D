@@ -9,7 +9,7 @@
 /*   Updated: 2025/04/05 21:38:02 by saleshin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cube3d.h"
+#include "game.h"
 
 void	load_single_texture(void *mlx, t_tex *tex)
 {
@@ -23,7 +23,7 @@ void	load_single_texture(void *mlx, t_tex *tex)
 			&tex->line_length, &tex->endian);
 }
 
-void	load_textures(t_data *data)
+void	load_textures(t_game *data)
 {
 	load_single_texture(data->mlx, &data->textures.north);
 	load_single_texture(data->mlx, &data->textures.south);
@@ -31,7 +31,7 @@ void	load_textures(t_data *data)
 	load_single_texture(data->mlx, &data->textures.west);
 }
 
-t_tex	*get_wall_tex(t_data *data, int side,
+t_tex	*get_wall_tex(t_game *data, int side,
 			double ray_dir_x, double ray_dir_y)
 {
 	if (side == 0)
@@ -50,7 +50,7 @@ t_tex	*get_wall_tex(t_data *data, int side,
 	}
 }
 
-void	calculate_texture(t_data *data, t_ray *ray)
+void	calculate_texture(t_game *data, t_ray *ray)
 {
 	double	wall_x;
 

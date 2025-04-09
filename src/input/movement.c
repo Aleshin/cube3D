@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "game.h"
 
-void	move_forward(t_data *data)
+void	move_forward(t_game *data)
 {
 	if (data->map[(int)(data->py)]
 		[(int)(data->px + data->dir_x * MOVE_SPEED)] == 0)
@@ -22,7 +22,7 @@ void	move_forward(t_data *data)
 		data->py += data->dir_y * MOVE_SPEED;
 }
 
-void	move_backward(t_data *data)
+void	move_backward(t_game *data)
 {
 	if (data->map[(int)(data->py)]
 		[(int)(data->px - data->dir_x * MOVE_SPEED)] == 0)
@@ -32,7 +32,7 @@ void	move_backward(t_data *data)
 		data->py -= data->dir_y * MOVE_SPEED;
 }
 
-void	strafe_left(t_data *data)
+void	strafe_left(t_game *data)
 {
 	if (data->map[(int)(data->py)]
 		[(int)(data->px - data->plane_x * MOVE_SPEED)] == 0)
@@ -42,7 +42,7 @@ void	strafe_left(t_data *data)
 		data->py -= data->plane_y * MOVE_SPEED;
 }
 
-void	strafe_right(t_data *data)
+void	strafe_right(t_game *data)
 {
 	if (data->map[(int)(data->py)]
 		[(int)(data->px + data->plane_x * MOVE_SPEED)] == 0)

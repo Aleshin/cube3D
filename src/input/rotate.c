@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "game.h"
 
-void	rotate_left(t_data *data)
+void	rotate_left(t_game *data)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -29,7 +29,7 @@ void	rotate_left(t_data *data)
 		+ data->plane_y * cos(ROT_SPEED);
 }
 
-void	rotate_right(t_data *data)
+void	rotate_right(t_game *data)
 {
 	double	old_dir_x;
 	double	old_plane_x;
