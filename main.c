@@ -9,12 +9,15 @@
 /*   Updated: 2025/04/05 20:19:13 by saleshin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "libft.h"
 #include "game.h"
+#include "parser.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_game	game_data;
+
+	parser(argc, argv);
 
 	init_game(&game_data);
 	mlx_loop_hook(game_data.mlx, render, &game_data);
