@@ -16,8 +16,9 @@
 int	main(int argc, char **argv)
 {
 	t_game	game_data;
+	t_data	data;
 
-	parser(argc, argv);
+	parser(argc, argv, data);
 
 	init_game(&game_data);
 	mlx_loop_hook(game_data.mlx, render, &game_data);

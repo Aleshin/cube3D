@@ -251,9 +251,8 @@ int	parse_input(char *str, t_data *data)
 
 
 
-int parser(int argc, char **argv)
+int parser(int argc, char **argv, t_data data)
 {
-    t_data data;
     input_data_init(&data);
     
 	

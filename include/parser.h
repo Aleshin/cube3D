@@ -76,7 +76,7 @@ int err_open(char *file);
 int is_empty_or_whitespace(char *str);
 int	ft_isspace(char c);
 char	**ft_split_global(const char *s, char c);
-int parser(int argc, char **argv);
+int parser(int argc, char **argv, t_data data);
 
 //** STRUCT INIT */
 void input_data_init(t_data *data);
