@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "./libft/libft.h"
+#include "libft.h"
 
 char	*grow_buffer(char *buffer, size_t new_size, int index)
 {

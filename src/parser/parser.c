@@ -34,131 +34,102 @@ char	*trim_trailing_spaces(const char *str)
 
 	len = ft_strlen(str);
 	while (len > 0 && ft_isspace(str[len - 1]))
-		len--; // Move backward to remove spaces
-	return (ft_substr(str, 0, len)); // Extract trimmed substring
+		len--;
+	return (ft_substr(str, 0, len));
 }
 
 //helper
-void print_input(t_data data)
+void	print_input(t_data data)
 {
-    printf("PRINT DATA IN FILLED STRUCT\n");
-    printf("NO '%s'\n", data.NO);
-    printf("SO '%s'\n", data.SO);
-    printf("WE '%s'\n", data.WE);
-    printf("EA '%s'\n", data.EA);
-    printf("Filled %d \n", data.filled);
-    printf("Floor %d, %d, %d \n", data.F.r,data.F.g, data.F.b);
-    printf("Ceiling %d, %d, %d \n", data.C.r,data.C.g, data.C.b);
-    
-    printf("MAP---------->\n");
-    for (size_t i = 0; i < data.rows; i++)
-    {
-        printf("%s\n", data.map[i]);
-    }
-    printf("rows is %zu, cols is %zu, pos is [%d][%d], direction is %c \n", data.rows, data.cols, data.me.pos.x, data.me.pos.y, data.me.dir);
+	size_t	i;
+
+	printf("PRINT DATA IN FILLED STRUCT\n");
+	printf("NO '%s'\n", data.NO);
+	printf("SO '%s'\n", data.SO);
+	printf("WE '%s'\n", data.WE);
+	printf("EA '%s'\n", data.EA);
+	printf("Filled %d \n", data.filled);
+	printf("Floor %d\n", data.floor);
+	printf("Ceiling %d\n", data.ceiling);
+	printf("MAP---------->\n");
+	i = 0;
+	while (i < data.rows)
+	{
+		printf("%s\n", data.map[i]);
+		i++;
+	}
+	printf("rows is %zu, cols is %zu, pos is [%d][%d], direction is %c \n",
+		data.rows, data.cols, data.me.pos.x, data.me.pos.y, data.me.dir);
 }
 
-//parse string like this "255,0,4" andd assign to F or C
-int	fill_color(t_color *l, char *str, char id)
+//returns int color or -1 in case of error
+int	set_color(char *str)
 {
-	int		i;
 	char	**arr;
+	int		colors[3];
+	int		i;
 
 	i = 0;
-	arr = ft_split(str, ','); // Split string into 3 components
+	arr = ft_split(str, ',');
 	if (!arr)
-		return (0); // Allocation error
-
-	// Count elements
+		return (-1);
 	while (arr[i])
+	{
+		colors[i] = ft_atoi(arr[i]);
+		if (colors[i] == -1)
+			return (free_matrix(arr, 3), -1);
 		i++;
-
+	}
 	if (i != 3)
 	{
 		printf("Error:\n 3 parameters [R,G,B]\n");
-		free_matrix(arr, 3);
-		return (0); //err
+		return (free_matrix(arr, 3), -1);
 	}
-
-	if (id == 'C')
-	{
-		// Convert strings to numbers
-		l->r = ft_atoi(arr[0]);
-		l->g = ft_atoi(arr[1]);
-		l->b = ft_atoi(arr[2]);
-
-		if (l->r == -1 || l->g == -1 || l->b == -1)
-		{
-			printf("Error: Invalid RGB value (must be 0-255 and only digits)\n");
-			free_matrix(arr, 3);
-			return (0); //err
-		}
-		free_matrix(arr, 3);
-		return (1); // Ok
-	}
-	else if (id == 'F')
-	{
-		// Convert strings to numbers
-		l->r = ft_atoi(arr[0]);
-		l->g = ft_atoi(arr[1]);
-		l->b = ft_atoi(arr[2]);
-
-		if (l->r == -1 || l->g == -1 || l->b == -1)
-		{
-			printf("Error: Invalid RGB value (must be 0-255 and only digits)\n");
-			free_matrix(arr, 3);
-			return (0); //err
-		}
-		free_matrix(arr, 3);
-		return (1); // Ok
-	}
-	return (0);
+	free_matrix(arr, 3);
+	return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 }
 
+//if (check_identifier(str, &(data->NO), "NO"))
 int	check_identifier(char *str, void *target, char *id)
 {
 	size_t	id_len;
+	int		*color_target;
+	char	**path_target;
 
-	id_len = ft_strlen(id); // Length of the identifier
-	// Check if the identifier matches
-	if (ft_strncmp(str, id, id_len) == 0 && ft_isspace(*(str + id_len)))
+	id_len = ft_strlen(id);
+	if (ft_strncmp(str, id, id_len) != 0 || !ft_isspace(str[id_len]))
+		return (0);
+	str += id_len;
+	while (ft_isspace(*str))
+		str++;
+	if (id[0] == 'F' || id[0] == 'C')
 	{
-		str += id_len; // Move pointer past the identifier
-		// Skip spaces after the identifier
-		while (ft_isspace(*str))
-			str++;
-		// Check for duplication if it's a texture identifier (NO, SO, WE, EA)
-		if (id[0] != 'C' && id[0] != 'F' && *(char **)target != NULL)
+		color_target = (int *)target;
+		if (*color_target != -2)
 		{
 			printf("Error: Duplicated identifier %s\n", id);
-			return (0); // Return error if already assigned
+			return (-1);
 		}
-		// Handle texture identifiers (NO, SO, WE, EA)
-		if (id[0] != 'C' && id[0] != 'F')
+		*color_target = set_color(str);
+		if (*color_target == -1)
 		{
-			char **path_target;
-
-			path_target = (char **)target;
-			*path_target = trim_trailing_spaces(str);
-			if (!*path_target)
-				return (0); // Allocation error
-			printf("Successfully assigned %s: [%s]\n", id, *path_target);
+			printf("ERROR Color\n");
+			return (-1);
 		}
-		// Handle color identifiers (C, F)
-		else
-		{
-			t_color *color_target;
-			color_target = (t_color *)target; // Cast the target to t_location pointer
-			// Now you can access the fields of the t_location structure
-			if (!fill_color(color_target, str, *id))
-			{
-				return (0);
-			}
-			printf("Successfully assigned string %s color: \n", str);
-		}
-		return (1); // Return success
 	}
-	return (0); // Return 0 if the identifier doesn't match
+	else
+	{
+		path_target = (char **)target;
+		if (*path_target != NULL)
+		{
+			printf("Error: Duplicated identifier %s\n", id);
+			return (-1);
+		}
+		*path_target = trim_trailing_spaces(str);
+		if (!*path_target)
+			return (-1);
+	}
+	return (1);
 }
 
 int	store_raw_map(t_data *data, char *line)
@@ -168,142 +139,132 @@ int	store_raw_map(t_data *data, char *line)
 
 	if (!data || !line || !data->inside)
 		return (0);
-
 	trimmed_line = trim_trailing_spaces(line);
 	if (!trimmed_line)
-		return (0); // Memory allocation failed
-
+		return (0);
 	len = ft_strlen(trimmed_line);
 	data->map[data->rows] = (char *)malloc(len + 1);
 	if (!data->map[data->rows])
 	{
 		free(trimmed_line);
-		return (0); // Allocation error
+		return (0);
 	}
-
 	ft_strlcpy(data->map[data->rows], trimmed_line, len + 1);
-	free(trimmed_line); // Free temporary trimmed string
-
+	free(trimmed_line);
 	data->rows++;
-
-	if (!data->inside)
-		data->inside = 1;
 	return (1);
 }
 
-int	parse_input(char *str, t_data *data)
+int	map_begin(char *str)
 {
-	if (!str || !data)
+	if (!str)
 		return (0);
-
-	char *start = str; // for map
-	while (ft_isspace(*str))
+	while (*str)
+	{
+		if (*str != '1' && *str != '0' && *str != 'N' && *str != 'S'
+			&& *str != 'E' && *str != 'W' && !ft_isspace(*str))
+			return (0);
 		str++;
-	// If it is a beginning of a map put flag
-	if ((!ft_isspace(*str) && data->filled == 6))
-	{
-		data->inside = 1;
 	}
+	return (1);
+}
 
-	if (store_raw_map(data, start))
+int	handle_map(t_data *data, char *str)
+{
+	char *start;
+
+    start = str;
+    if (data->filled < 6)
 	{
-		return (1); // all good
-	}
-	if (check_identifier(str, &(data->NO), "NO"))
-	{
-		data->filled += 1;
-		return (1);
-	}
-	if (check_identifier(str, &(data->SO), "SO"))
-	{
-		data->filled += 1;
-		return (1);
-	}
-	if (check_identifier(str, &(data->WE), "WE"))
-	{
-		data->filled += 1;
-		return (1);
-	}
-	if (check_identifier(str, &(data->EA), "EA"))
-	{
-		data->filled += 1;
-		return (1);
-	}
-	if (check_identifier(str, &(data->F), "F"))
-	{
-		data->filled += 1;
-		return (1);
-	}
-	if (check_identifier(str, &(data->C), "C"))
-	{
-		data->filled += 1;
-		return (1);
-	}
-	else
-	{
-		free_data(data);
+		printf("Error: Map should go last\n");
 		return (0);
 	}
-	free_data(data);
-	printf("Error: Unrecognized input: [%s]\n", str);
+	data->inside = 1;
+	if (store_raw_map(data, start))
+		return (1);
 	return (0);
 }
 
-
-
-int parser(int argc, char **argv, t_data data)
+int	parse_line(char *str, t_data *data)
 {
-    input_data_init(&data);
-    
-	
-	
-	char *file = get_filename(argc, argv);
-    if (!file)
-    {
-        free_data(&data);
-        return (1);
-    }  
-    int     fd;
-    char    *line;
-    
-    fd = err_open(file);
-    if (fd == -1)
-    {
-       free_data(&data);
-       return (1); 
-    }
-    line = get_next_line(fd); //if result is empty line skip to next
-    while (line)	
-    {
-        if (is_empty_or_whitespace(line) && data.inside == 0) // Skip to the next line if parse_input returns 0
-        {
-            free(line);
-            line = get_next_line(fd);
-            continue;
-        }
-        if (!parse_input(line, &data))
-        {
-            free(line);
-            return(1);
-        }
-        free(line);
-        line = get_next_line(fd);
-    }  
-    if(!normalize_map(&data))
-    {
-        printf("Map is not valid\n");
-        free_data(&data);
-        return 1;
-    } 
-    if (!is_map_closed(&data)) //area size begin
+	int		result;
+	int		i;
+	void	*targets[6];
+	char	*ids[6];
+
+	if (!str || !data)
+		return (0);
+	while (ft_isspace(*str))
+		str++;
+	targets[0] = &(data->NO);
+	targets[1] = &(data->SO);
+	targets[2] = &(data->WE);
+	targets[3] = &(data->EA);
+	targets[4] = &(data->floor);
+	targets[5] = &(data->ceiling);
+	ids[0] = "NO";
+	ids[1] = "SO";
+	ids[2] = "WE";
+	ids[3] = "EA";
+	ids[4] = "F";
+	ids[5] = "C";
+	i = 0;
+	while (i < 6)
 	{
-        printf("\nThe map is open\n");
-        free_data(&data);
-        return 1;
-    }
-    print_input(data);
-    free_data(&data);
-    close(fd);
-    return (0);
+		result = check_identifier(str, targets[i], ids[i]);
+		if (result == 1)
+			return (data->filled++, 1);
+		if (result == -1)
+			return (0);
+		i++;
+	}
+	if (map_begin(str))
+		return (handle_map(data, str));
+	else
+	{
+		printf("Error: Unrecognized input: %s\n", str);
+		return (0);
+	}
+	return (0);
 }
 
+int parser(int argc, char **argv, t_data *data)
+{
+	int		fd;
+	char	*file;
+	char	*line;
+
+	file = get_filename(argc, argv);
+	if (!file)
+	{
+		return (0);
+	}
+	fd = err_open(file);
+	if (fd == -1)
+	{
+		return (0);
+	}
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (is_empty_or_whitespace(line) && data->inside == 0)
+		{
+			free(line);
+			line = get_next_line(fd);
+			continue ;
+		}
+		if (!parse_line(line, data))
+		{
+			free(line);
+			return (0);
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	if (!map_ok(data))
+	{
+		return (0);
+	}
+	close(fd);
+	return (1);
+}

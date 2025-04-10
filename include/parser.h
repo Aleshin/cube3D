@@ -28,12 +28,6 @@
 # endif
 
 //** STRUCTS */
-typedef struct s_color{
-    int r;
-    int g;
-    int b;
-} t_color;
-
 typedef struct s_point{
     int x;
     int y;
@@ -50,8 +44,8 @@ typedef struct s_data {
     char *WE;
     char *EA;
 
-    t_color F;
-    t_color C;
+    int floor;
+    int ceiling;
 
     int filled; // 6 filled all data exept map, map goes last
     
@@ -75,18 +69,16 @@ char* get_filename(int arg, char **argv);
 int err_open(char *file);
 int is_empty_or_whitespace(char *str);
 int	ft_isspace(char c);
-char	**ft_split_global(const char *s, char c);
-int parser(int argc, char **argv, t_data data);
+int parser(int argc, char **argv, t_data *data);
 
 //** STRUCT INIT */
 void input_data_init(t_data *data);
 void free_data(t_data *data);
-void free_arr(char **arr);
 
 //* MAP HANDLING
-int map_is_valid(const t_data data);
 int normalize_map(t_data *data);
 int trim_empty_lines(t_data *data);
 int is_map_closed(t_data *data);
+int map_ok(t_data *data);
 
 #endif
