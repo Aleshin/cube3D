@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/libft.h"
 #include "parser.h"
 
 static int	valid_char(char *line, int *pos)
@@ -47,7 +47,7 @@ int	trim_empty_lines(t_data *data)
 	return (1);
 }
 
-int	map_is_valid(const t_data data)
+int	map_chars_ok(const t_data data)
 {
 	size_t	i;
 	int		pos;
@@ -150,7 +150,7 @@ int	normalize_map(t_data *data)
 		return (0);
 	if (!trim_empty_lines(data))
 		return (0);
-	if (!map_is_valid(*data))
+	if (!map_chars_ok(*data))
 		return (0);
 	set_cols_len(data);
 	while (i < data->rows)
@@ -170,5 +170,22 @@ int	normalize_map(t_data *data)
 		i++;
 	}
 	find_pos(data);
+	return (1);
+}
+
+int map_ok(t_data *data)
+{
+	if(!data)
+		return (0);
+	if (!normalize_map(data))
+	{
+		printf("Map is not valid\n");
+		return (0);
+	}
+	if (!is_map_closed(data))
+	{
+		printf("\nThe map is open\n");
+		return (0);
+	}
 	return (1);
 }
