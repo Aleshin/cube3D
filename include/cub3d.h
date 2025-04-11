@@ -6,6 +6,6 @@
 # include "game.h"
 
 void	set_player_direction(t_game *game, t_player *player);
-int	**convert_char_map_to_int(t_data data);
-
+int		**convert_char_map_to_int(t_data data);
+void	set_colors(t_game *game, t_data *colors);
 #endif

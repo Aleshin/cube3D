@@ -11,7 +11,7 @@ SRC = main.c \
 	src/input/rotate.c src/textures/textures_utils.c src/init.c \
 	src/parser/get_next_line.c src/parser/helper_input.c src/parser/helper_errors.c \
 	src/parser/struct_init.c src/parser/flood_fill.c src/parser/handle_map.c src/parser/parser.c \
-	src/converter/player_converter.c
+	src/converter/player_converter.c src/converter/colors_converter.c
 OBJ = $(SRC:.c=.o)
 
 MLX_DIR = minilibx-linux
