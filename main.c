@@ -15,7 +15,7 @@
 
 void	fill_cols(int i, t_data *data, int **map)
 {
-	int	j;
+	size_t	j;
 
 	j = 0;
 	while (j < data->cols)
@@ -96,9 +96,9 @@ int	main(int argc, char **argv)
 	// printf("Position direction %c, coord [%d].[%d]\n",
 	// 	data.me.dir, data.me.pos.x, data.me.pos.y);
 	// Convert char map to int map and print it
-	// map = convert_char_map_to_int(data);
-	// if (map)
-	// 	print_int_map(map, data.rows, data.cols);
+	map = convert_char_map_to_int(data);
+	if (map)
+		print_int_map(map, data.rows, data.cols);
 	//game logic placeholder
 	init_game(&game_data);
 	mlx_loop_hook(game_data.mlx, render, &game_data);
@@ -106,6 +106,7 @@ int	main(int argc, char **argv)
 	mlx_hook(game_data.win, 3, 1L << 1, key_release, &game_data);
 	mlx_hook(game_data.win, 17, 0, close_win, &game_data);
 	mlx_loop(game_data.mlx);
+	free(map);
 	free_data(&data);
 	return (0);
 }
