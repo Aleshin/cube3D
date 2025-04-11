@@ -9,9 +9,8 @@
 /*   Updated: 2025/04/05 20:19:13 by saleshin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./libft/libft.h"
-#include "game.h"
-#include "parser.h"
+#include "libft.h"
+#include "cub3d.h"
 
 void	fill_cols(int i, t_data *data, int **map)
 {
@@ -96,6 +95,7 @@ int	main(int argc, char **argv)
 	// 	data.me.dir, data.me.pos.x, data.me.pos.y);
 	// Convert char map to int map and print it
 	//game logic placeholder
+	set_player_direction(&game_data, &data.me);
 	init_game(&game_data, data);
 	print_int_map(game_data.map,game_data.height, game_data.width);
 	mlx_loop_hook(game_data.mlx, render, &game_data);
