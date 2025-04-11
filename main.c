@@ -95,8 +95,8 @@ int	main(int argc, char **argv)
 	// 	data.me.dir, data.me.pos.x, data.me.pos.y);
 	// Convert char map to int map and print it
 	//game logic placeholder
-	set_player_direction(&game_data, &data.me);
 	init_game(&game_data, data);
+	set_player_direction(&game_data, &data.me);
 	print_int_map(game_data.map,game_data.height, game_data.width);
 	mlx_loop_hook(game_data.mlx, render, &game_data);
 	mlx_hook(game_data.win, 2, 1L << 0, key_press, &game_data);

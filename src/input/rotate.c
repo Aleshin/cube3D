@@ -12,7 +12,7 @@
 
 #include "game.h"
 
-void	rotate_left(t_game *data)
+void	rotate_right(t_game *data)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -29,7 +29,7 @@ void	rotate_left(t_game *data)
 		+ data->plane_y * cos(ROT_SPEED);
 }
 
-void	rotate_right(t_game *data)
+void	rotate_left(t_game *data)
 {
 	double	old_dir_x;
 	double	old_plane_x;
