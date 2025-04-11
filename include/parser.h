@@ -80,5 +80,6 @@ int normalize_map(t_data *data);
 int trim_empty_lines(t_data *data);
 int is_map_closed(t_data *data);
 int map_ok(t_data *data);
+void	print_input(t_data data);
 
 #endif

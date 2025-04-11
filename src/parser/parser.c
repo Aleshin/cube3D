@@ -43,14 +43,14 @@ void	print_input(t_data data)
 {
 	size_t	i;
 
-	printf("PRINT DATA IN FILLED STRUCT\n");
-	printf("NO '%s'\n", data.NO);
-	printf("SO '%s'\n", data.SO);
-	printf("WE '%s'\n", data.WE);
-	printf("EA '%s'\n", data.EA);
-	printf("Filled %d \n", data.filled);
-	printf("Floor %d\n", data.floor);
-	printf("Ceiling %d\n", data.ceiling);
+	// printf("PRINT DATA IN FILLED STRUCT\n");
+	// printf("NO '%s'\n", data.NO);
+	// printf("SO '%s'\n", data.SO);
+	// printf("WE '%s'\n", data.WE);
+	// printf("EA '%s'\n", data.EA);
+	// printf("Filled %d \n", data.filled);
+	// printf("Floor %d\n", data.floor);
+	// printf("Ceiling %d\n", data.ceiling);
 	printf("MAP---------->\n");
 	i = 0;
 	while (i < data.rows)
@@ -58,8 +58,8 @@ void	print_input(t_data data)
 		printf("%s\n", data.map[i]);
 		i++;
 	}
-	printf("rows is %zu, cols is %zu, pos is [%d][%d], direction is %c \n",
-		data.rows, data.cols, data.me.pos.x, data.me.pos.y, data.me.dir);
+	// printf("rows is %zu, cols is %zu, pos is [%d][%d], direction is %c \n",
+	// 	data.rows, data.cols, data.me.pos.x, data.me.pos.y, data.me.dir);
 }
 
 //returns int color or -1 in case of error
@@ -263,6 +263,7 @@ int parser(int argc, char **argv, t_data *data)
 	}
 	if (!map_ok(data))
 	{
+		print_input(*data);
 		return (0);
 	}
 	close(fd);
