@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "./libft/libft.h"
-//#include "game.h"
+#include "game.h"
 #include "parser.h"
 
 void	fill_cols(int i, t_data *data, int **map)
@@ -75,7 +75,7 @@ void	print_int_map(int **map, size_t rows, size_t cols)
 
 int	main(int argc, char **argv)
 {
-	//t_game	game_data;
+	t_game	game_data;
 	t_data	data;
 	int		**map;
 
@@ -99,13 +99,13 @@ int	main(int argc, char **argv)
 	map = convert_char_map_to_int(data);
 	if (map)
 		print_int_map(map, data.rows, data.cols);
-	// game logic placeholder
-	// init_game(&game_data);
-	// mlx_loop_hook(game_data.mlx, render, &game_data);
-	// mlx_hook(game_data.win, 2, 1L << 0, key_press, &game_data);
-	// mlx_hook(game_data.win, 3, 1L << 1, key_release, &game_data);
-	// mlx_hook(game_data.win, 17, 0, close_win, &game_data);
-	// mlx_loop(game_data.mlx);
+	game logic placeholder
+	init_game(&game_data);
+	mlx_loop_hook(game_data.mlx, render, &game_data);
+	mlx_hook(game_data.win, 2, 1L << 0, key_press, &game_data);
+	mlx_hook(game_data.win, 3, 1L << 1, key_release, &game_data);
+	mlx_hook(game_data.win, 17, 0, close_win, &game_data);
+	mlx_loop(game_data.mlx);
 	free_data(&data);
 	return (0);
 }
