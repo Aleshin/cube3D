@@ -114,9 +114,11 @@ typedef struct s_game
 	double			dir_y;          // Direction vector Y
 	double			plane_x;        // Camera plane X
 	double			plane_y;        // Camera plane Y
-	int	width; //added
-	int height; //added
-	int				**map; // Map array
+	int				width; 			//added
+	int 			height; 		//added
+	int				**map; 			// Map array
+	int				color_floor;
+	int				color_ceiling;
 }	t_game;
 
 /* ────── Init ────── */

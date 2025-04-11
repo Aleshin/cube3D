@@ -14,20 +14,16 @@
 
 void	render_frame(t_game *data)
 {
-	int		ceiling_color;
-	int		floor_color;
 	int		x;
 	t_ray	ray;
 
-	ceiling_color = 0xA8A8B8;
-	floor_color = 0x5A5A5A;
 	x = 0;
 	while (x < WIDTH)
 	{
 		cast_ray(data, x, &ray);
-		draw_ceiling(data, x, ray.draw_start, ceiling_color);
+		draw_ceiling(data, x, ray.draw_start, data->color_ceiling);
 		draw_wall(data, x, &ray);
-		draw_floor(data, x, ray.draw_end, floor_color);
+		draw_floor(data, x, ray.draw_end, data->color_floor);
 		x++;
 	}
 }

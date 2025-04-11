@@ -97,6 +97,7 @@ int	main(int argc, char **argv)
 	//game logic placeholder
 	init_game(&game_data, data);
 	set_player_direction(&game_data, &data.me);
+	set_colors(&game_data, &data);
 	print_int_map(game_data.map,game_data.height, game_data.width);
 	mlx_loop_hook(game_data.mlx, render, &game_data);
 	mlx_hook(game_data.win, 2, 1L << 0, key_press, &game_data);
