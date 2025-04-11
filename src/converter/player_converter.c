@@ -45,8 +45,8 @@ static void	set_dir_west(t_game *game)
 
 void	set_player_direction(t_game *game, t_player *player)
 {
-	game->px = player->pos.x;
-	game->py = player->pos.y;
+	game->px = player->pos.x + 0.5;
+	game->py = player->pos.y + 0.5;
 	if (player->dir == 'N')
 		set_dir_north(game);
 	else if (player->dir == 'S')

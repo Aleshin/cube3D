@@ -37,16 +37,16 @@ t_tex	*get_wall_tex(t_game *data, int side,
 	if (side == 0)
 	{
 		if (ray_dir_x > 0)
-			return (&data->textures.west);
-		else
 			return (&data->textures.east);
+		else
+			return (&data->textures.west);
 	}
 	else
 	{
 		if (ray_dir_y > 0)
-			return (&data->textures.north);
-		else
 			return (&data->textures.south);
+		else
+			return (&data->textures.north);
 	}
 }
 

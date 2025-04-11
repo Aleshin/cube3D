@@ -72,8 +72,8 @@ void	init_map(t_game *data)
 		y++;
 	}
 	data->textures.north.path = ft_strdup("src/textures/colorstone.xpm");
-	data->textures.south.path = ft_strdup("src/textures/colorstone.xpm");
-	data->textures.east.path = ft_strdup("src/textures/greystone.xpm");
+	data->textures.south.path = ft_strdup("src/textures/purplestone.xpm");
+	data->textures.east.path = ft_strdup("src/textures/planks.xpm");
 	data->textures.west.path = ft_strdup("src/textures/greystone.xpm");
 }
 
