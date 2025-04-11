@@ -76,7 +76,6 @@ int	main(int argc, char **argv)
 {
 	t_game	game_data;
 	t_data	data;
-	int		**map;
 
 	input_data_init(&data);
 	if (!parser(argc, argv, &data))
@@ -95,18 +94,15 @@ int	main(int argc, char **argv)
 	// printf("Position direction %c, coord [%d].[%d]\n",
 	// 	data.me.dir, data.me.pos.x, data.me.pos.y);
 	// Convert char map to int map and print it
-	map = convert_char_map_to_int(data);
-	if (map)
-		print_int_map(map, data.rows, data.cols);
 	//game logic placeholder
-	init_game(&game_data);
 	set_player_direction(&game_data, &data.me);
+	init_game(&game_data, data);
+	print_int_map(game_data.map,game_data.height, game_data.width);
 	mlx_loop_hook(game_data.mlx, render, &game_data);
 	mlx_hook(game_data.win, 2, 1L << 0, key_press, &game_data);
 	mlx_hook(game_data.win, 3, 1L << 1, key_release, &game_data);
 	mlx_hook(game_data.win, 17, 0, close_win, &game_data);
 	mlx_loop(game_data.mlx);
-	free(map);
 	free_data(&data);
 	return (0);
 }

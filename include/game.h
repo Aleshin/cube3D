@@ -13,6 +13,8 @@
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
+# include "parser.h"
+
 /* ────── System Includes ────── */
 # include <stdlib.h>        // Memory allocation, exit
 # include <unistd.h>        // Write, read
@@ -112,12 +114,14 @@ typedef struct s_game
 	double			dir_y;          // Direction vector Y
 	double			plane_x;        // Camera plane X
 	double			plane_y;        // Camera plane Y
-	int				map[MAP_HEIGHT][MAP_WIDTH]; // Map array
+	int	width; //added
+	int height; //added
+	int				**map; // Map array
 }	t_game;
 
 /* ────── Init ────── */
-void	init_game(t_game *data);          // Initialize the main game data structure
-void	init_map(t_game *data);           // Initialize or load the game map
+void	init_game(t_game *data, t_data input);          // Initialize the main game data structure
+void	init_map(t_game *data, t_data input);           // Initialize or load the game map
 void	init_player(t_game *data);        // Set initial player position and direction
 void	init_window(t_game *data);        // Initialize the game window with MLX
 
