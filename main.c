@@ -86,20 +86,20 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	// Print parsed data info
-	printf("Data from input:\n");
-	printf("path to north %s\n", data.NO);
-	printf("path to south %s\n", data.SO);
-	printf("path to east %s\n", data.EA);
-	printf("path to west %s\n", data.WE);
-	printf("Floor color %d, celiling color %d\n", data.floor, data.ceiling);
-	printf("Map size rows %zu, cols %zu\n", data.rows, data.cols);
-	printf("Position direction %c, coord [%d].[%d]\n",
-		data.me.dir, data.me.pos.x, data.me.pos.y);
+	// printf("Data from input:\n");
+	// printf("path to north %s\n", data.NO);
+	// printf("path to south %s\n", data.SO);
+	// printf("path to east %s\n", data.EA);
+	// printf("path to west %s\n", data.WE);
+	// printf("Floor color %d, celiling color %d\n", data.floor, data.ceiling);
+	// printf("Map size rows %zu, cols %zu\n", data.rows, data.cols);
+	// printf("Position direction %c, coord [%d].[%d]\n",
+	// 	data.me.dir, data.me.pos.x, data.me.pos.y);
 	// Convert char map to int map and print it
-	map = convert_char_map_to_int(data);
-	if (map)
-		print_int_map(map, data.rows, data.cols);
-	game logic placeholder
+	// map = convert_char_map_to_int(data);
+	// if (map)
+	// 	print_int_map(map, data.rows, data.cols);
+	//game logic placeholder
 	init_game(&game_data);
 	mlx_loop_hook(game_data.mlx, render, &game_data);
 	mlx_hook(game_data.win, 2, 1L << 0, key_press, &game_data);
