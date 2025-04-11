@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
+#include "cub3d.h"
 
-void	init_game(t_game *data)
+void	init_game(t_game *data, t_data input)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ void	init_game(t_game *data)
 	}
 	init_player(data);
 	init_window(data);
-	init_map(data);
+	init_map(data, input);
 	load_textures(data);
 }
 
@@ -48,29 +48,42 @@ void	init_window(t_game *data)
 			&data->bpp, &data->line_length, &data->endian);
 }
 
-void	init_map(t_game *data)
+void	init_map(t_game *data, t_data input)
 {
-	int	temp[MAP_HEIGHT][MAP_WIDTH] = {
-	{1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1}
-	};
-	int	y;
-	int	x;
+	
+	data->width = (int)input.cols;
+	data->height = (int)input.rows;
 
-	y = 0;
-	while (y < MAP_HEIGHT)
+	//input->map
+	data->map = convert_char_map_to_int(input);
+	if (!data->map)
 	{
-		x = 0;
-		while (x < MAP_WIDTH)
-		{
-			data->map[y][x] = temp[y][x];
-			x++;
-		}
-		y++;
+		printf("Error: failed to convert map\n");
+		exit(0);
+	// Handle the error here (e.g., free memory or exit)
 	}
+	
+	// int	temp[MAP_HEIGHT][MAP_WIDTH] = {
+	// {1, 1, 1, 1, 1, 1},
+	// {1, 0, 0, 0, 0, 1},
+	// {1, 0, 0, 0, 0, 1},
+	// {1, 0, 0, 0, 0, 1},
+	// {1, 1, 1, 1, 1, 1}
+	// };
+	// int	y;
+	// int	x;
+
+	// y = 0;
+	// while (y < MAP_HEIGHT)
+	// {
+	// 	x = 0;
+	// 	while (x < MAP_WIDTH)
+	// 	{
+	// 		data->map[y][x] = temp[y][x];
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
 	data->textures.north.path = ft_strdup("src/textures/colorstone.xpm");
 	data->textures.south.path = ft_strdup("src/textures/colorstone.xpm");
 	data->textures.east.path = ft_strdup("src/textures/greystone.xpm");
