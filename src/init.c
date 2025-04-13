@@ -36,6 +36,12 @@ void	init_player(t_game *data)
 	data->dir_y = 0;
 	data->plane_x = 0;
 	data->plane_y = FOV;
+
+	data->textures.north.path = NULL;
+	data->textures.south.path = NULL;
+	data->textures.east.path = NULL;
+	data->textures.west.path = NULL;
+	
 	gettimeofday(&data->prev_time, NULL);
 }
 
@@ -62,51 +68,9 @@ void	init_map(t_game *data, t_data input)
 		exit(0);
 	// Handle the error here (e.g., free memory or exit)
 	}
-	
-	// int	temp[MAP_HEIGHT][MAP_WIDTH] = {
-	// {1, 1, 1, 1, 1, 1},
-	// {1, 0, 0, 0, 0, 1},
-	// {1, 0, 0, 0, 0, 1},
-	// {1, 0, 0, 0, 0, 1},
-	// {1, 1, 1, 1, 1, 1}
-	// };
-	// int	y;
-	// int	x;
 
-	// y = 0;
-	// while (y < MAP_HEIGHT)
-	// {
-	// 	x = 0;
-	// 	while (x < MAP_WIDTH)
-	// 	{
-	// 		data->map[y][x] = temp[y][x];
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
-	data->textures.north.path = ft_strdup("src/textures/colorstone.xpm");
-	data->textures.south.path = ft_strdup("src/textures/purplestone.xpm");
-	data->textures.east.path = ft_strdup("src/textures/planks.xpm");
-	data->textures.west.path = ft_strdup("src/textures/greystone.xpm");
-}
-
-char	*ft_strdup(const char *s)
-{
-	char	*copy;
-	int		i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	copy = malloc(i + 1);
-	if (!copy)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		copy[i] = s[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
+	data->textures.north.path = ft_strdup(input.NO);
+	data->textures.south.path = ft_strdup(input.SO);
+	data->textures.east.path = ft_strdup(input.EA);
+	data->textures.west.path = ft_strdup(input.WE);
 }

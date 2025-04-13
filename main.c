@@ -83,18 +83,6 @@ int	main(int argc, char **argv)
 		free_data(&data);
 		return (1);
 	}
-	// Print parsed data info
-	// printf("Data from input:\n");
-	// printf("path to north %s\n", data.NO);
-	// printf("path to south %s\n", data.SO);
-	// printf("path to east %s\n", data.EA);
-	// printf("path to west %s\n", data.WE);
-	// printf("Floor color %d, celiling color %d\n", data.floor, data.ceiling);
-	// printf("Map size rows %zu, cols %zu\n", data.rows, data.cols);
-	// printf("Position direction %c, coord [%d].[%d]\n",
-	// 	data.me.dir, data.me.pos.x, data.me.pos.y);
-	// Convert char map to int map and print it
-	//game logic placeholder
 	init_game(&game_data, data);
 	set_player_direction(&game_data, &data.me);
 	set_colors(&game_data, &data);
