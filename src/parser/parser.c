@@ -171,16 +171,13 @@ int	map_begin(char *str)
 
 int	handle_map(t_data *data, char *str)
 {
-	char *start;
-
-    start = str;
     if (data->filled < 6)
 	{
 		printf("Error: Map should go last\n");
 		return (0);
 	}
 	data->inside = 1;
-	if (store_raw_map(data, start))
+	if (store_raw_map(data, str))
 		return (1);
 	return (0);
 }
@@ -191,10 +188,12 @@ int	parse_line(char *str, t_data *data)
 	int		i;
 	void	*targets[6];
 	char	*ids[6];
+	char *start;
 
+	start = str;
 	if (!str || !data)
 		return (0);
-	while (ft_isspace(*str))
+	while (ft_isspace(*str)) ////here!!!
 		str++;
 	targets[0] = &(data->NO);
 	targets[1] = &(data->SO);
@@ -219,7 +218,7 @@ int	parse_line(char *str, t_data *data)
 		i++;
 	}
 	if (map_begin(str))
-		return (handle_map(data, str));
+		return (handle_map(data, start));
 	else
 	{
 		printf("Error: Unrecognized input: %s\n", str);
