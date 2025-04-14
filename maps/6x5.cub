@@ -1,9 +1,9 @@
-   NO              src/textures/colorstone.xpm
-SO       src/textures/purplestone.xpm
-WE src/textures/planks.xpm    
-EA src/textures/greystone.xpm
+   NO              src/textures/greystone_dark.xpm
+SO       src/textures/greystone_moldy.xpm
+WE src/textures/greystone.xpm    
+EA src/textures/greystone_dark_moldy.xpm
                              
-F    100, 50, 50
+F    40, 20, 10
 C 200,220,255
 
 1111111111111111111
