@@ -60,16 +60,24 @@ typedef struct s_data {
 } t_data;
 
 
+//**ERRORS**
+void print_err_exit(char *str);
+int print_err(char *str, char *id, int err);
+char *print_err_ptr(char *str);
+int err_open(char *file);
 
 //**FOR GET NEXT LINE */
 char	*get_next_line(int fd);
 
 //** PARSING */
 char* get_filename(int arg, char **argv);
-int err_open(char *file);
 int is_empty_or_whitespace(char *str);
 int	ft_isspace(char c);
+int	set_color(char *str);
 int parser(int argc, char **argv, t_data *data);
+int	parse_line(char *str, t_data *data);
+int	check_identifier(char *str, void *target, char *id);
+char	**free_matrix(char **arr_of_words, int col);
 
 //** STRUCT INIT */
 void input_data_init(t_data *data);
@@ -78,8 +86,11 @@ void free_data(t_data *data);
 //* MAP HANDLING
 int normalize_map(t_data *data);
 int trim_empty_lines(t_data *data);
+int	map_chars_ok(const t_data data);
 int is_map_closed(t_data *data);
 int map_ok(t_data *data);
 void	print_input(t_data data);
+char	*trim_trailing_spaces(const char *str);
+int	store_raw_map(t_data *data, char *line);
 
 #endif
