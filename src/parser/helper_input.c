@@ -33,16 +33,10 @@ char	*get_filename(int arg, char **argv)
 	char	*str;
 
 	if (arg != 2)
-	{
-		printf("Error\ninput should be <./cub3D> <file.cub>\n");
-		return (NULL);
-	}
+		return (print_err_ptr("Input should be <./cub3D> <file.cub>"));
 	str = argv[1];
 	if (!check_extention(str))
-	{
-		perror("Error\nonly .cub extention allowed and filename required\n");
-		return (NULL);
-	}
+		return (print_err_ptr("Only .cub extention allowed"));
 	return (str);
 }
 
