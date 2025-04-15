@@ -75,8 +75,8 @@ int is_empty_or_whitespace(char *str);
 int	ft_isspace(char c);
 int	set_color(char *str);
 int parser(int argc, char **argv, t_data *data);
-int	parse_line(char *str, t_data *data);
-int	check_identifier(char *str, void *target, char *id);
+void *get_texture_or_color(char *type, t_data *data);
+char *get_type(char *str);
 char	**free_matrix(char **arr_of_words, int col);
 
 //** STRUCT INIT */
@@ -92,5 +92,7 @@ int map_ok(t_data *data);
 void	print_input(t_data data);
 char	*trim_trailing_spaces(const char *str);
 int	store_raw_map(t_data *data, char *line);
+int	handle_map(t_data *data, char *str);
+int	map_begin(char *str);
 
 #endif

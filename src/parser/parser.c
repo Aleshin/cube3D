@@ -13,38 +13,74 @@
 #include "libft.h"
 #include "parser.h"
 
-//if (check_identifier(str, &(data->NO), "NO"))
-int	check_identifier(char *str, void *target, char *id)
+static char	*move_to_val(char *str)
 {
-	size_t	id_len;
-	int		*color_target;
-	char	**path_target;
-
-	id_len = ft_strlen(id);
-	if (ft_strncmp(str, id, id_len) != 0 || !ft_isspace(str[id_len]))
-		return (0);
-	str += id_len;
+	if (!str)
+		return (NULL);
 	while (ft_isspace(*str))
 		str++;
-	if (id[0] == 'F' || id[0] == 'C')
+	while (*str && !ft_isspace(*str))
+		str++;
+	while (ft_isspace(*str))
+		str++;
+	return (str);
+}
+
+static int	check_identifier(char *str, t_data *data)
+{
+	char	*type;
+	void	*target;
+
+	if (!str || !data)
+		return (0);
+	type = get_type(str);
+	if (!type)
+		return (0);
+	target = get_texture_or_color(type, data);
+	if (!target)
 	{
-		color_target = (int *)target;
-		if (*color_target != -2)
-			return (print_err("Duplicated identifier", id, -1));
-		*color_target = set_color(str);
-		if (*color_target == -1)
+		free(type);
+		return (0);
+	}
+	str = move_to_val(str);
+	if (ft_strcmp(type, "F") == 0 || ft_strcmp(type, "C") == 0)
+	{
+		if (*(int *)target != -2)
+			return (print_err("Duplicated identifier", type, -1));
+		*(int *)target = set_color(str);
+		if (*(int *)target == -1)
 			return (-1);
 	}
 	else
 	{
-		path_target = (char **)target;
-		if (*path_target != NULL)
-			return (print_err("Duplicated identifier", id, -1));
-		*path_target = trim_trailing_spaces(str);
-		if (!*path_target)
+		if (*(char **)target != NULL)
+			return (print_err("Duplicated identifier", type, -1));
+		*(char **)target = trim_trailing_spaces(str);
+		if (!*(char **)target)
 			return (-1);
 	}
+	free(type);
 	return (1);
+}
+
+static int	parse_line(char *str, t_data *data)
+{
+	int	result;
+
+	if (!str || !data)
+		return (0);
+	if (map_begin(str))
+	{
+		if (data->filled < 6)
+			return (print_err("Map must be last", str, 0));
+		return (handle_map(data, str));
+	}
+	result = check_identifier(str, data);
+	if (result == 1)
+		return (++data->filled, 1);
+	else if (result == -1)
+		return (0);
+	return (print_err("Unrecognised input", str, 0));
 }
 
 int	parser(int argc, char **argv, t_data *data)
@@ -55,14 +91,10 @@ int	parser(int argc, char **argv, t_data *data)
 
 	file = get_filename(argc, argv);
 	if (!file)
-	{
 		return (0);
-	}
 	fd = err_open(file);
 	if (fd == -1)
-	{
 		return (0);
-	}
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -73,18 +105,12 @@ int	parser(int argc, char **argv, t_data *data)
 			continue ;
 		}
 		if (!parse_line(line, data))
-		{
-			free(line);
-			return (0);
-		}
+			return (free(line), 0);
 		free(line);
 		line = get_next_line(fd);
 	}
 	if (!map_ok(data))
-	{
-		print_input(*data);
 		return (0);
-	}
 	close(fd);
 	return (1);
 }

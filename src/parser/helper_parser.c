@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "parser.h"
 
-static int	map_begin(char *str)
+int	map_begin(char *str)
 {
 	if (!str)
 		return (0);
@@ -27,7 +27,7 @@ static int	map_begin(char *str)
 	return (1);
 }
 
-static int	handle_map(t_data *data, char *str)
+int	handle_map(t_data *data, char *str)
 {
 	if (data->filled < 6)
 		return (print_err("Map should be last", NULL, 0));
@@ -37,49 +37,45 @@ static int	handle_map(t_data *data, char *str)
 	return (0);
 }
 
-void	init_ptrs(t_data *data, void **targets, char **ids)
+char	*get_type(char *str)
 {
-	targets[0] = &(data->NO);
-	targets[1] = &(data->SO);
-	targets[2] = &(data->WE);
-	targets[3] = &(data->EA);
-	targets[4] = &(data->floor);
-	targets[5] = &(data->ceiling);
-	ids[0] = "NO";
-	ids[1] = "SO";
-	ids[2] = "WE";
-	ids[3] = "EA";
-	ids[4] = "F";
-	ids[5] = "C";
+	int		i;
+	int		len;
+	char	*type;
+
+	i = 0;
+	len = 0;
+	if (!str)
+		return (NULL);
+	while (ft_isspace(str[len]))
+		len++;
+	while (str[len + i] && !ft_isspace(str[len + i]))
+		i++;
+	type = malloc(sizeof(char) * (i + 1));
+	if (!type)
+		return (NULL);
+	i = 0;
+	while (str[len] && !ft_isspace(str[len]))
+		type[i++] = str[len++];
+	type[i] = '\0';
+	return (type);
 }
 
-int	parse_line(char *str, t_data *data)
+void	*get_texture_or_color(char *type, t_data *data)
 {
-	int		result;
-	int		i;
-	void	*targets[6];
-	char	*ids[6];
-	char	*start;
-
-	start = str;
-	if (!str || !data)
-		return (0);
-	while (ft_isspace(*str))
-		str++;
-    init_ptrs(data, targets, ids);
-	i = 0;
-	while (i < 6)
-	{
-		result = check_identifier(str, targets[i], ids[i]);
-		if (result == 1)
-			return (data->filled++, 1);
-		if (result == -1)
-			return (0);
-		i++;
-	}
-	if (map_begin(str))
-		return (handle_map(data, start));
-	else
-		return (print_err("Unrecognized input", str, 0));
-	return (0);
+	if (!type || !data)
+		return (NULL);
+	if (ft_strcmp(type, "NO") == 0)
+		return (&(data->NO));
+	if (ft_strcmp(type, "SO") == 0)
+		return (&(data->SO));
+	if (ft_strcmp(type, "WE") == 0)
+		return (&(data->WE));
+	if (ft_strcmp(type, "EA") == 0)
+		return (&(data->EA));
+	if (ft_strcmp(type, "F") == 0)
+		return (&(data->floor));
+	if (ft_strcmp(type, "C") == 0)
+		return (&(data->ceiling));
+	return (NULL);
 }
