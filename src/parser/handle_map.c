@@ -13,68 +13,6 @@
 #include "libft.h"
 #include "parser.h"
 
-static int	valid_char(char *line, int *pos)
-{
-	if (!line)
-		return (0);
-	while (*line)
-	{
-		if (*line != '1' && *line != '0' && *line != 'N'
-			&& *line != 'S' && *line != 'W' && *line != 'E'
-			&& !ft_isspace(*line))
-		{
-			printf("Wrong char %c\n", *line);
-			return (0);
-		}
-		if (*line == 'N' || *line == 'S' || *line == 'W' || *line == 'E')
-			(*pos)++;
-		line++;
-	}
-	return (1);
-}
-
-int	trim_empty_lines(t_data *data)
-{
-	if (!data || !data->map || data->rows <= 0)
-		return (0);
-	while (data->rows > 0
-		&& is_empty_or_whitespace(data->map[data->rows - 1]))
-	{
-		free(data->map[data->rows - 1]);
-		data->map[data->rows - 1] = NULL;
-		data->rows--;
-	}
-	return (1);
-}
-
-int	map_chars_ok(const t_data data)
-{
-	size_t	i;
-	int		pos;
-
-	i = 0;
-	pos = 0;
-	if (data.rows < 3)
-		return (0);
-	while (i < data.rows)
-	{
-		if (is_empty_or_whitespace(data.map[i]))
-		{
-			printf("Error empty line inside a map\n");
-			return (0);
-		}
-		if (!valid_char(data.map[i], &pos))
-		{
-			printf("Error not allowed characters\n");
-			return (0);
-		}
-		i++;
-	}
-	if (pos > 1 || pos < 1)
-		printf("Error position is not correct\n");
-	return (pos == 1);
-}
-
 static int	copy_str(char *dst, char *src)
 {
 	int	i;
@@ -88,7 +26,6 @@ static int	copy_str(char *dst, char *src)
 	}
 	return (1);
 }
-
 
 static void	find_pos(t_data *data)
 {
@@ -117,7 +54,7 @@ static void	find_pos(t_data *data)
 	}
 }
 
-int	set_cols_len(t_data *data)
+static int	set_cols_len(t_data *data)
 {
 	size_t	i;
 	size_t	len;
@@ -139,20 +76,13 @@ int	set_cols_len(t_data *data)
 	return (1);
 }
 
-int	normalize_map(t_data *data)
+int	fill_rows(t_data *data)
 {
 	size_t	i;
 	char	*tmp;
 
 	i = 0;
 	tmp = NULL;
-	if (!data || !data->map)
-		return (0);
-	if (!trim_empty_lines(data))
-		return (0);
-	if (!map_chars_ok(*data))
-		return (0);
-	set_cols_len(data);
 	while (i < data->rows)
 	{
 		tmp = (char *)malloc(data->cols + 1);
@@ -169,23 +99,20 @@ int	normalize_map(t_data *data)
 		data->map[i] = tmp;
 		i++;
 	}
-	find_pos(data);
 	return (1);
 }
 
-int map_ok(t_data *data)
+int	normalize_map(t_data *data)
 {
-	if(!data)
+	if (!data || !data->map)
 		return (0);
-	if (!normalize_map(data))
-	{
-		printf("Map is not valid\n");
+	if (!trim_empty_lines(data))
 		return (0);
-	}
-	if (!is_map_closed(data))
-	{
-		printf("\nThe map is open\n");
+	if (!map_chars_ok(*data))
 		return (0);
-	}
+	set_cols_len(data);
+	if (!fill_rows(data))
+		return (0);
+	find_pos(data);
 	return (1);
 }

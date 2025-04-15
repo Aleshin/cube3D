@@ -24,3 +24,28 @@ int	err_open(char *file)
 	}
 	return (fd);
 }
+
+void	print_err_exit(char *str)
+{
+	if (!str)
+		exit (0);
+	printf("Error\n");
+	printf("%s", str);
+	exit (0);
+}
+
+int	print_err(char *str, char *id, int err)
+{
+	if (!str)
+		return (0);
+	printf("\033[1;31mError\n%s\033[0m\n", str);
+	if (id)
+		printf("\033[1;31m%s\033[0m\n", id);
+	return (err);
+}
+
+char	*print_err_ptr(char *str)
+{
+	printf("\033[1;31mError\n%s\033[0m\n", str);
+	return (NULL);
+}
