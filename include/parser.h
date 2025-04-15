@@ -23,10 +23,6 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# ifndef MAP_SIZE
-#define MAP_SIZE 50
-# endif
-
 //** STRUCTS */
 typedef struct s_point{
     int x;
@@ -54,6 +50,7 @@ typedef struct s_data {
     size_t rows; //number of rows
     size_t cols; //str len
 
+    size_t map_size;
     char **map;
 
     t_player me;
@@ -84,6 +81,7 @@ void input_data_init(t_data *data);
 void free_data(t_data *data);
 
 //* MAP HANDLING
+char	**free_matrix(char **arr_of_words, int col);
 int normalize_map(t_data *data);
 int trim_empty_lines(t_data *data);
 int	map_chars_ok(const t_data data);
