@@ -13,56 +13,6 @@
 #include "libft.h"
 #include "parser.h"
 
-static char	*move_to_val(char *str)
-{
-	if (!str)
-		return (NULL);
-	while (ft_isspace(*str))
-		str++;
-	while (*str && !ft_isspace(*str))
-		str++;
-	while (ft_isspace(*str))
-		str++;
-	return (str);
-}
-
-static int	check_identifier(char *str, t_data *data)
-{
-	char	*type;
-	void	*target;
-
-	if (!str || !data)
-		return (0);
-	type = get_type(str);
-	if (!type)
-		return (0);
-	target = get_texture_or_color(type, data);
-	if (!target)
-	{
-		free(type);
-		return (0);
-	}
-	str = move_to_val(str);
-	if (ft_strcmp(type, "F") == 0 || ft_strcmp(type, "C") == 0)
-	{
-		if (*(int *)target != -2)
-			return (print_err("Duplicated identifier", type, -1));
-		*(int *)target = set_color(str);
-		if (*(int *)target == -1)
-			return (-1);
-	}
-	else
-	{
-		if (*(char **)target != NULL)
-			return (print_err("Duplicated identifier", type, -1));
-		*(char **)target = trim_trailing_spaces(str);
-		if (!*(char **)target)
-			return (-1);
-	}
-	free(type);
-	return (1);
-}
-
 static int	parse_line(char *str, t_data *data)
 {
 	int	result;
@@ -77,10 +27,33 @@ static int	parse_line(char *str, t_data *data)
 	}
 	result = check_identifier(str, data);
 	if (result == 1)
-		return (++data->filled, 1);
+	{
+		data->filled++;
+		return (1);
+	}
 	else if (result == -1)
 		return (0);
 	return (print_err("Unrecognised input", str, 0));
+}
+
+void	read_line(char *line, t_data *data, int *fd)
+{
+	while (line)
+	{
+		if (is_empty_or_whitespace(line) && data->inside == 0)
+		{
+			free(line);
+			line = get_next_line(*fd);
+			continue ;
+		}
+		if (!parse_line(line, data))
+		{
+			free(line);
+			return ;
+		}
+		free(line);
+		line = get_next_line(*fd);
+	}
 }
 
 int	parser(int argc, char **argv, t_data *data)
@@ -96,19 +69,7 @@ int	parser(int argc, char **argv, t_data *data)
 	if (fd == -1)
 		return (0);
 	line = get_next_line(fd);
-	while (line)
-	{
-		if (is_empty_or_whitespace(line) && data->inside == 0)
-		{
-			free(line);
-			line = get_next_line(fd);
-			continue ;
-		}
-		if (!parse_line(line, data))
-			return (free(line), 0);
-		free(line);
-		line = get_next_line(fd);
-	}
+	read_line(line, data, &fd);
 	if (!map_ok(data))
 		return (0);
 	close(fd);

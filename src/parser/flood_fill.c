@@ -67,7 +67,7 @@ int	fill(t_data *data, int y, int x, char **map)
 	return (open);
 }
 
-int	is_map_closed(t_data *data)
+static int	is_map_closed(t_data *data)
 {
 	int		is_open;
 	char	**copy;
