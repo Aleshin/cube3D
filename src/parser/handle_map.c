@@ -76,7 +76,7 @@ static int	set_cols_len(t_data *data)
 	return (1);
 }
 
-int	fill_rows(t_data *data)
+static int	fill_rows(t_data *data)
 {
 	size_t	i;
 	char	*tmp;

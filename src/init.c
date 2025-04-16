@@ -69,8 +69,8 @@ void	init_map(t_game *data, t_data input)
 	// Handle the error here (e.g., free memory or exit)
 	}
 
-	data->textures.north.path = ft_strdup(input.NO);
-	data->textures.south.path = ft_strdup(input.SO);
-	data->textures.east.path = ft_strdup(input.EA);
-	data->textures.west.path = ft_strdup(input.WE);
+	data->textures.north.path = ft_strdup(input.no);
+	data->textures.south.path = ft_strdup(input.so);
+	data->textures.east.path = ft_strdup(input.ea);
+	data->textures.west.path = ft_strdup(input.we);
 }

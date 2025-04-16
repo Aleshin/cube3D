@@ -12,7 +12,7 @@ SRC = main.c \
 	src/parser/get_next_line.c src/parser/helper_input.c src/parser/helper_errors.c \
 	src/parser/struct_init.c src/parser/flood_fill.c src/parser/handle_map.c \
 	src/parser/parser.c src/parser/helpers_map.c src/parser/helper_color.c\
-	src/parser/helper_parser.c\
+	src/parser/helper_parser.c src/parser/helper_check_id.c\
 	src/converter/player_converter.c src/converter/colors_converter.c
 OBJ = $(SRC:.c=.o)
 

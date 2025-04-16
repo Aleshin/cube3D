@@ -14,11 +14,11 @@
 
 static void	init_texture_and_colors(t_data *data)
 {
-	data->NO = NULL; // Path to the texture file
-	data->SO = NULL;
-	data->WE = NULL;
-	data->EA = NULL;
-	data->ceiling = -2; // 0 to 255
+	data->no = NULL;
+	data->so = NULL;
+	data->we = NULL;
+	data->ea = NULL;
+	data->ceiling = -2;
 	data->floor = -2;
 }
 
@@ -63,12 +63,10 @@ void	free_data(t_data *data)
 	i = 0;
 	if (!data)
 		return ;
-	// Free texture paths
-	free(data->NO);
-	free(data->SO);
-	free(data->WE);
-	free(data->EA);
-	// Free the map
+	free(data->no);
+	free(data->so);
+	free(data->we);
+	free(data->ea);
 	while (i < data->map_size)
 	{
 		free(data->map[i]);

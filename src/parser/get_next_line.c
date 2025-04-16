@@ -13,7 +13,7 @@
 #include "parser.h"
 #include "libft.h"
 
-char	*grow_buffer(char *buffer, size_t new_size, int index)
+static char	*grow_buffer(char *buffer, size_t new_size, int index)
 {
 	char	*new_buffer;
 	int		i;

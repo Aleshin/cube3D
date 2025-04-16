@@ -66,16 +66,30 @@ void	*get_texture_or_color(char *type, t_data *data)
 	if (!type || !data)
 		return (NULL);
 	if (ft_strcmp(type, "NO") == 0)
-		return (&(data->NO));
+		return (&(data->no));
 	if (ft_strcmp(type, "SO") == 0)
-		return (&(data->SO));
+		return (&(data->so));
 	if (ft_strcmp(type, "WE") == 0)
-		return (&(data->WE));
+		return (&(data->we));
 	if (ft_strcmp(type, "EA") == 0)
-		return (&(data->EA));
+		return (&(data->ea));
 	if (ft_strcmp(type, "F") == 0)
 		return (&(data->floor));
 	if (ft_strcmp(type, "C") == 0)
 		return (&(data->ceiling));
 	return (NULL);
+}
+
+int	trim_empty_lines(t_data *data)
+{
+	if (!data || !data->map || data->rows <= 0)
+		return (0);
+	while (data->rows > 0
+		&& is_empty_or_whitespace(data->map[data->rows - 1]))
+	{
+		free(data->map[data->rows - 1]);
+		data->map[data->rows - 1] = NULL;
+		data->rows--;
+	}
+	return (1);
 }

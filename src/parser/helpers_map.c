@@ -33,20 +33,6 @@ static int	valid_char(char *line, int *pos)
 	return (1);
 }
 
-int	trim_empty_lines(t_data *data)
-{
-	if (!data || !data->map || data->rows <= 0)
-		return (0);
-	while (data->rows > 0
-		&& is_empty_or_whitespace(data->map[data->rows - 1]))
-	{
-		free(data->map[data->rows - 1]);
-		data->map[data->rows - 1] = NULL;
-		data->rows--;
-	}
-	return (1);
-}
-
 int	map_chars_ok(const t_data data)
 {
 	size_t	i;
@@ -85,75 +71,51 @@ char	*trim_trailing_spaces(const char *str)
 	return (ft_substr(str, 0, len));
 }
 
-int grow_map(t_data *data)
+static int	grow_map(t_data *data)
 {
 	size_t		i;
 	char		**new_map;
 
 	if (!data || !data->map)
 		return (0);
-
-	// Allocate new map with double the size
 	new_map = (char **)malloc(sizeof(char *) * (data->map_size * 2));
 	if (!new_map)
 		return (0);
-
-	// Copy pointers to already allocated strings
 	i = 0;
 	while (i < data->rows)
 	{
 		new_map[i] = data->map[i];
 		i++;
 	}
-
-	// Initialize remaining slots
 	while (i < data->map_size * 2)
 		new_map[i++] = NULL;
-
-	// Free old map pointer (not strings!)
 	free(data->map);
-
-	// Update data with new map
 	data->map = new_map;
 	data->map_size *= 2;
-
 	return (1);
 }
 
-
-int store_raw_map(t_data *data, char *line)
+int	store_raw_map(t_data *data, char *line)
 {
 	size_t	len;
 	char	*trimmed_line;
 
 	if (!data || !line || !data->inside)
 		return (0);
-
 	trimmed_line = trim_trailing_spaces(line);
 	if (!trimmed_line)
 		return (0);
-
 	len = ft_strlen(trimmed_line);
-
 	if (data->rows >= data->map_size)
 	{
 		if (!grow_map(data))
-		{
-			free(trimmed_line);
-			return (0);
-		}
+			return (free(trimmed_line), 0);
 	}
-
 	data->map[data->rows] = (char *)malloc(len + 1);
 	if (!data->map[data->rows])
-	{
-		free(trimmed_line);
-		return (0);
-	}
-
+		return (free(trimmed_line), 0);
 	ft_strlcpy(data->map[data->rows], trimmed_line, len + 1);
 	free(trimmed_line);
 	data->rows++;
-
 	return (1);
 }

@@ -22,47 +22,15 @@ memory is filled with bytes of value zero.*/
 void	*ft_calloc(size_t count, size_t size)
 {
 	char	*ptr;
-    
+
 	if (count == 0 || size == 0)
 	{
 		count = 1;
 		size = 1;
 	}
-    ptr = (char *)malloc(count * size);
-    if (!ptr)
-    {
-        return (NULL);
-    }
-	ft_bzero (ptr, count * size);
+	ptr = (char *)malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, count * size);
 	return (ptr);
 }
-/*
-int main(void)
-{
-    size_t count = 5;
-    size_t size = 8;
-	size_t i = 0;
-    int *str = (int *)ft_calloc(count, size);
-
-    //check if str exists
-	if (str == NULL)
-    {
-        printf("Memory allocation failed.\n");
-        return 1;
-    }
-
-    printf("Allocated memory for %zu elements of size %zu.\n", count, size);
-
-    // Print the allocated array
-    printf("Array elements:\n");
-    
-	while (i++ < count)
-    {
-        printf("%d\n ", str[i]);
-    }
-
-    // Free allocated memory
-    free(str);
-
-    return 0;
-}*/
