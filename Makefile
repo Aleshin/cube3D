@@ -2,6 +2,7 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -MMD -MP
 INCLUDES	= -Iinclude -Isrc -Ilibft -Iminilibx-linux
 LDFLAGS		= -Llibft -lft -Lminilibx-linux -lmlx -lXext -lX11 -lm
+RM			= rm -f
 
 NAME		= cub3D
 
@@ -39,8 +40,12 @@ clean:
 
 fclean: clean
 	@$(MAKE) -C libft fclean
+	@$(MAKE) -C minilibx-linux clean
 	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re libs
+bonus:
+	@echo "No bonus part implemented."
+
+.PHONY: all clean fclean re libs bonus

@@ -14,6 +14,8 @@
 
 int	key_press(int keycode, t_game *data)
 {
+	if (keycode < 0 || keycode >= 65536)
+		return (0);
 	data->keys[keycode] = 1;
 	if (keycode == XK_Escape)
 		return (close_win(data));
@@ -22,6 +24,8 @@ int	key_press(int keycode, t_game *data)
 
 int	key_release(int keycode, t_game *data)
 {
+	if (keycode < 0 || keycode >= 65536)
+		return (0);
 	data->keys[keycode] = 0;
 	return (0);
 }
