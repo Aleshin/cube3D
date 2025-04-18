@@ -54,6 +54,8 @@ void	calculate_projection(t_ray *ray)
 {
 	int	line_height;
 
+	if (ray->perp_wall_dist <= 0.0001)
+		ray->perp_wall_dist = 0.0001;
 	line_height = (int)(HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -line_height / 2 + HEIGHT / 2;
 	if (ray->draw_start < 0)
