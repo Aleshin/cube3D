@@ -89,7 +89,7 @@ int	map_ok(t_data *data)
 	if (!data)
 		return (0);
 	if (!normalize_map(data))
-		return (print_err("Map is not valid", NULL, 0));
+		return (0);
 	if (!is_map_closed(data))
 		return (print_err("The map is open", NULL, 0));
 	return (1);

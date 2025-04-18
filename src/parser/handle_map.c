@@ -104,7 +104,7 @@ static int	fill_rows(t_data *data)
 
 int	normalize_map(t_data *data)
 {
-	if (!data || !data->map)
+	if (!data || !data->map[0])
 		return (0);
 	if (!trim_empty_lines(data))
 		return (0);
