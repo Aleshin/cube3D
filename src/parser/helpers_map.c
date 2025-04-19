@@ -22,10 +22,7 @@ static int	valid_char(char *line, int *pos)
 		if (*line != '1' && *line != '0' && *line != 'N'
 			&& *line != 'S' && *line != 'W' && *line != 'E'
 			&& !ft_isspace(*line))
-		{
-			printf("Wrong char %c\n", *line);
 			return (0);
-		}
 		if (*line == 'N' || *line == 'S' || *line == 'W' || *line == 'E')
 			(*pos)++;
 		line++;
@@ -41,24 +38,18 @@ int	map_chars_ok(const t_data data)
 	i = 0;
 	pos = 0;
 	if (data.rows < 3)
-		return (0);
+		return (print_err("Map must have at least 3 lines", NULL, 0));
 	while (i < data.rows)
 	{
 		if (is_empty_or_whitespace(data.map[i]))
-		{
-			printf("Error empty line inside a map\n");
-			return (0);
-		}
+			return (print_err("Empty line inside a map", NULL, 0));
 		if (!valid_char(data.map[i], &pos))
-		{
-			printf("Error not allowed characters\n");
-			return (0);
-		}
+			return (print_err("Wrong char in the map", NULL, 0));
 		i++;
 	}
-	if (pos > 1 || pos < 1)
-		printf("Error position is not correct\n");
-	return (pos == 1);
+	if (pos != 1)
+		return (print_err("Position is not correct", NULL, 0));
+	return (1);
 }
 
 char	*trim_trailing_spaces(const char *str)
