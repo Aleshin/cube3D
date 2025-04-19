@@ -20,12 +20,14 @@ static int	parse_line(char *str, t_data *data)
 
 	if (!str || !data)
 		return (0);
-	if (map_begin(str))
+
+	if (data->inside || map_begin(str))
 	{
 		if (data->filled < 6)
 			return (print_err("Map must be last", str, 0));
 		return (handle_map(data, str));
 	}
+
 	result = check_identifier(str, data);
 	if (result == 1)
 	{
@@ -73,6 +75,7 @@ int	parser(int argc, char **argv, t_data *data)
 	if (fd == -1)
 		return (0);
 	line = get_next_line(fd);
+	
 	if(!read_line(line, data, &fd))
 		return (0);
 	if (!map_ok(data))

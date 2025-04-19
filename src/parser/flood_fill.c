@@ -86,8 +86,8 @@ static int	is_map_closed(t_data *data)
 
 int	map_ok(t_data *data)
 {
-	if (!data)
-		return (0);
+	if (!data || data->filled == 0)
+		print_err("Empty file", NULL, 0);
 	if (!normalize_map(data))
 		return (0);
 	if (!is_map_closed(data))
