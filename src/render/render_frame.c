@@ -30,14 +30,6 @@ void	render_frame(t_game *data)
 
 int	render(t_game *data)
 {
-	struct timeval	curr;
-	double			seconds;
-
-	gettimeofday(&curr, NULL);
-	seconds = (curr.tv_sec - data->prev_time.tv_sec)
-		+ (curr.tv_usec - data->prev_time.tv_usec) / 1000000.0;
-	data->frame_time = seconds;
-	data->prev_time = curr;
 	handle_movement(data);
 	render_frame(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);

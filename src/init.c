@@ -40,7 +40,6 @@ void	init_player(t_game *data)
 	data->textures.south.path = NULL;
 	data->textures.east.path = NULL;
 	data->textures.west.path = NULL;
-	gettimeofday(&data->prev_time, NULL);
 }
 
 void	init_window(t_game *data)

@@ -15,7 +15,7 @@ static void	set_dir_north(t_game *game)
 {
 	game->dir_x = 0;
 	game->dir_y = -1;
-	game->plane_x = 0.66;
+	game->plane_x = FOV;
 	game->plane_y = 0;
 }
 
@@ -23,7 +23,7 @@ static void	set_dir_south(t_game *game)
 {
 	game->dir_x = 0;
 	game->dir_y = 1;
-	game->plane_x = -0.66;
+	game->plane_x = -FOV;
 	game->plane_y = 0;
 }
 
@@ -32,7 +32,7 @@ static void	set_dir_east(t_game *game)
 	game->dir_x = 1;
 	game->dir_y = 0;
 	game->plane_x = 0;
-	game->plane_y = 0.66;
+	game->plane_y = FOV;
 }
 
 static void	set_dir_west(t_game *game)
@@ -40,7 +40,7 @@ static void	set_dir_west(t_game *game)
 	game->dir_x = -1;
 	game->dir_y = 0;
 	game->plane_x = 0;
-	game->plane_y = -0.66;
+	game->plane_y = -FOV;
 }
 
 void	set_player_direction(t_game *game, t_player *player)
