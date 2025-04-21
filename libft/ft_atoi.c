@@ -19,7 +19,6 @@ static int	ft_isspace(char c)
 		|| c == '\r' || c == ' ');
 }
 
-//special atoi no negativa and range (Check later)
 int	ft_atoi(const char *nptr)
 {
 	int	res;
@@ -38,7 +37,9 @@ int	ft_atoi(const char *nptr)
 		res = res * 10 + (*nptr - '0');
 		nptr++;
 	}
-	if (*nptr != '\0' && !ft_isspace(*nptr))
+	while (*nptr && ft_isspace(*nptr))
+		nptr++;
+	if (*nptr != '\0')
 		return (-1);
 	if (res > 255)
 		return (-2);
@@ -71,8 +72,8 @@ int	ft_atoi(const char *nptr)
 
 // int main(void)
 // {
-// 	printf("My atoi %d\n", ft_atoi("  0 "));
-// 	printf("My atoi %d\n", ft_atoi("   -ass2 "));
+// 	printf("My atoi %d\n", ft_atoi("225      	 f"));
+// 	printf("My atoi %d\n", ft_atoi(" s  -ass2 "));
 // 	printf("My atoi %d\n", ft_atoi("    2s "));
 // 	return 0;
 // }
