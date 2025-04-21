@@ -6,7 +6,7 @@ SO       src/textures/purplestone.xpm
 EA src/textures/greystone.xpm
 
                              
-F    255             , 255, 255
+F    255             , 255, 295 
 C            6   , 7,0            
 
 11111

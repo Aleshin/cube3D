@@ -97,7 +97,6 @@ int	main(int argc, char **argv)
 {
 	t_game	game_data;
 	t_data	data;
-
 	input_data_init(&data);
 	if (!parser(argc, argv, &data))
 	{

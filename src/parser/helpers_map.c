@@ -37,8 +37,6 @@ int	map_chars_ok(const t_data data)
 
 	i = 0;
 	pos = 0;
-	if (data.rows < 3)
-		return (print_err("Map must have at least 3 lines", NULL, 0));
 	while (i < data.rows)
 	{
 		if (is_empty_or_whitespace(data.map[i]))
