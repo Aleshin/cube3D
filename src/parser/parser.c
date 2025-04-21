@@ -49,7 +49,7 @@ int	read_line(char *line, t_data *data, int *fd)
 		if (!parse_line(line, data))
 		{
 			free(line);
-			return 0;
+			return (0);
 		}
 		free(line);
 		line = get_next_line(*fd);
@@ -70,8 +70,7 @@ int	parser(int argc, char **argv, t_data *data)
 	if (fd == -1)
 		return (0);
 	line = get_next_line(fd);
-	
-	if(!read_line(line, data, &fd))
+	if (!read_line(line, data, &fd))
 		return (0);
 	if (!map_ok(data))
 		return (0);
