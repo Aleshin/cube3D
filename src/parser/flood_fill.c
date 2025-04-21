@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include <string.h>
+#include "cub3d.h"
 
 void	free_area(char **area, int rows)
 {
@@ -37,7 +36,7 @@ char	**make_area(t_data *data)
 		return (NULL);
 	while (i < (int)data->rows)
 	{
-		area[i] = strdup(data->map[i]);
+		area[i] = ft_strdup(data->map[i]);
 		if (!area[i])
 		{
 			while (--i >= 0)
