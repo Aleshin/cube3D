@@ -1,15 +1,14 @@
    NO              src/textures/colorstone.xpm
 SO       src/textures/purplestone.xpm
-WE    src/textures/planks.xpm    
+WE   src/textures/planks.xpm    
 EA src/textures/greystone.xpm
                             
-F    240, 100, 0
 C 225,30,0
-
+ F 34, 56, 0
 111111
 100001
 10N001
-100000
+100001
 111111
-
-WE    src/textures/planks.xpm  
+ 
+   
