@@ -13,21 +13,18 @@
 #include "libft.h"
 #include "parser.h"
 
-//0 is err
 static int	parse_line(char *str, t_data *data)
 {
 	int	result;
 
 	if (!str || !data)
 		return (0);
-
 	if (data->inside || map_begin(str))
 	{
 		if (data->filled < 6)
-			return (print_err("Map must be last", str, 0));
+			return (print_err("Wrong configuration or missed data", NULL, 0));
 		return (handle_map(data, str));
 	}
-
 	result = check_identifier(str, data);
 	if (result == 1)
 	{
@@ -39,7 +36,6 @@ static int	parse_line(char *str, t_data *data)
 	return (print_err("Unrecognised input", str, 0));
 }
 
-//0 is errr
 int	read_line(char *line, t_data *data, int *fd)
 {
 	while (line)
@@ -61,7 +57,6 @@ int	read_line(char *line, t_data *data, int *fd)
 	return (1);
 }
 
-//err is 0
 int	parser(int argc, char **argv, t_data *data)
 {
 	int		fd;

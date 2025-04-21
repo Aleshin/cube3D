@@ -51,26 +51,47 @@ int	**convert_char_map_to_int(t_data data)
 	return (int_map);
 }
 
-void	print_int_map(int **map, size_t rows, size_t cols)
-{
-	size_t	i;
-	size_t	j;
+// void	print_int_map(int **map, size_t rows, size_t cols)
+// {
+// 	size_t	i;
+// 	size_t	j;
 
-	i = 0;
-	while (i < rows)
-	{
-		j = 0;
-		while (j < cols)
-		{
-			printf("%d", map[i][j]);
-			if (j < cols - 1)
-				printf(" ");
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < rows)
+// 	{
+// 		j = 0;
+// 		while (j < cols)
+// 		{
+// 			printf("%d", map[i][j]);
+// 			if (j < cols - 1)
+// 				printf(" ");
+// 			j++;
+// 		}
+// 		printf("\n");
+// 		i++;
+// 	}
+// }
+
+// void	print_input(t_data data)
+// {
+// 	//size_t	i;
+
+// 	// printf("PRINT DATA IN FILLED STRUCT\n");
+// 	// printf("NO '%s'\n", data.NO);
+// 	// printf("SO '%s'\n", data.SO);
+// 	// printf("WE '%s'\n", data.WE);
+// 	// printf("EA '%s'\n", data.EA);
+// 	// printf("Filled %d \n", data.filled);
+// 	printf("Floor %d\n", data.floor);
+// 	printf("Ceiling %d\n", data.ceiling);
+// 	// printf("MAP---------->\n");
+// 	// i = 0;
+// 	// while (i < data.rows)
+// 	// {
+// 	// 	printf("%s\n", data.map[i]);
+// 	// 	i++;
+// 	// }
+// }
 
 int	main(int argc, char **argv)
 {
@@ -86,7 +107,6 @@ int	main(int argc, char **argv)
 	init_game(&game_data, data);
 	set_player_direction(&game_data, &data.me);
 	set_colors(&game_data, &data);
-	print_int_map(game_data.map, game_data.height, game_data.width);
 	mlx_loop_hook(game_data.mlx, render, &game_data);
 	mlx_hook(game_data.win, 2, 1L << 0, key_press, &game_data);
 	mlx_hook(game_data.win, 3, 1L << 1, key_release, &game_data);
